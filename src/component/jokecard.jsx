@@ -8,10 +8,9 @@ function JokeCard() {
 
   const fetchJoke = async () => {
     setLoading(true);
+    setError("");
 
     try {
-      setError("");
-
       const response = await fetch(
         "https://official-joke-api.appspot.com/random_joke"
       );
@@ -37,22 +36,40 @@ function JokeCard() {
     <div className={styles.jokeCard}>
       <h1>Random Joke</h1>
 
-      <p>Click a button to fetch a fresh one.</p>
+      <p>Click the button to fetch a fresh one.</p>
 
       <button onClick={fetchJoke} disabled={loading}>
         {loading ? "Fetching..." : "Fetch Joke"}
       </button>
 
-      {error && <p className={styles.error}>{error}</p>}
+      {error ? (
+        <>
+          <p className={styles.error}>{error}</p>
 
-      {joke ? (
+          <button
+            type="button"
+            onClick={fetchJoke}
+            disabled={loading}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#1677ff",
+              textDecoration: "underline",
+              cursor: "pointer",
+              padding: 0,
+            }}
+          >
+            Try again
+          </button>
+        </>
+      ) : joke ? (
         <div>
           <p>{joke.setup}</p>
           <p>{joke.punchline}</p>
         </div>
-      ) : !error ? (
+      ) : (
         <p>No joke yet.</p>
-      ) : null}
+      )}
     </div>
   );
 }
