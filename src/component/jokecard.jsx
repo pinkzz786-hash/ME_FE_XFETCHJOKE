@@ -39,7 +39,7 @@ function JokeCard() {
       <p>Click the button to fetch a fresh one.</p>
 
       <button onClick={fetchJoke} disabled={loading}>
-        {loading ? "Fetching..." : "Fetch Joke"}
+        {loading ? "Fetching..." : "Fetch joke"}
       </button>
 
       {error ? (
